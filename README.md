@@ -8,34 +8,16 @@ API の接続先を設定しないかぎりモックのデータで動く。池�
 ## Swift Playgrounds で動かす
 
 1. 新しい「App」を作る
-2. パッケージを追加する：`https://github.com/syadool/NorikaeKit`（ブランチ `main`）。プロダクトは `Feature` と `LiveGuidance` を選ぶ
-3. アプリのエントリポイント（`MyApp.swift`）を次の内容に置き換える
+2. パッケージを追加する：`https://github.com/syadool/NorikaeKit`（ブランチ `main`）。プロダクトは `Feature` を選ぶ
+3. アプリのエントリポイント（`MyApp.swift`）の中身をすべて消し、次の 2 行だけにする
 
 ```swift
 import Feature
-import LiveGuidance
-import SwiftUI
-
-@main
-struct MyApp: App {
-    @State private var dependencies: AppDependencies
-
-    init() {
-        let dependencies = AppDependencies.makeFromLaunchEnvironment()
-        _dependencies = State(initialValue: dependencies)
-        GuidanceIntentBridge.shared.handler = dependencies.guidance
-    }
-
-    var body: some Scene {
-        WindowGroup {
-            NorikaeRootView()
-                .environment(dependencies)
-        }
-    }
-}
+@main struct MyApp: App { var body: some Scene { NorikaeScene() } }
 ```
 
 `ContentView.swift` は使わないので消してよい。
+コードをコピーしたときに字下げが非改行スペース（U+00A0）になるとビルドできないので、字下げのない 2 行にしている。
 
 ## 制約
 
